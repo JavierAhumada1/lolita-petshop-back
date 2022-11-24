@@ -5,16 +5,24 @@ const usersSchema = mongoose.Schema({
     name: {type: String, required: true, trim: true},
     email: {type: String, required: true, trim: true, unique: true},
     password: {type: String, required: true},
-    lastName: {type: String, required: true, trim: true},
+    lastName: {type: String, trim: true},
     Cp: {type: Number, trim: true},
     streetCode: {type: String},
     district:{type: String},
     phone: {type: Number},
     description: {type: String},
-    dni: {type: Number, trim: true}
+    dni: {type: Number, trim: true},
+    confirm: {type: Boolean, default: false}
 
 })
 
+usersSchema.pre('save', async function(next) {
+    if(!this.isModified('password')){
+        next()
+    }
+    const salt = await bcrypt.genSalt(10)
+    this.password = await bcrypt.hash(this.password, salt)
+})
 
 //comprubea las passsword del formulario con la del model (base de datos)
 usersSchema.methods.checkPassword = async function(passswordForm) {

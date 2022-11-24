@@ -11,7 +11,7 @@ const register = async (req, res) => {
         const user = new User(req.body)
         const userSaved = await user.save()
 
-        res.staus(200).josn({
+        res.status(200).josn({
             msg: 'Registrando usaurio',
             userSaved
         })
