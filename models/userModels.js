@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
+import {v4 as uuidv4} from 'uuid'
 
 const usersSchema = mongoose.Schema({
     name: {type: String, required: true, trim: true},
@@ -12,7 +13,8 @@ const usersSchema = mongoose.Schema({
     phone: {type: Number},
     description: {type: String},
     dni: {type: Number, trim: true},
-    confirm: {type: Boolean, default: false}
+    confirm: {type: Boolean, default: false},
+    token: {type: String, default: uuidv4()}
 
 })
 
