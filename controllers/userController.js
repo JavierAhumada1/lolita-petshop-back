@@ -1,3 +1,4 @@
+import emailRegistro from '../helpers/emailRegistered.js'
 import generateJWT from '../helpers/generateJWT.js'
 import User from '../models/userModels.js'
 
@@ -11,6 +12,12 @@ const register = async (req, res) => {
         }
         const user = new User(req.body)
         const userSaved = await user.save()
+
+        emailRegistro({
+            email,
+            name,
+            token: userSaved.token
+        })
 
         res.status(200).json({
             msg: 'Registrando usuario',
@@ -28,7 +35,7 @@ const confirmUser = async (req, res) => {
     const userConfirm = await User.findOne({token})
     if(!userConfirm){
         const error = new Error('Token no valido')
-        res.status(400).json({
+        return res.status(400).json({
             msg: error.message
         })
     }
