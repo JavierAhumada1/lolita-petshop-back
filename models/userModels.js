@@ -7,7 +7,7 @@ const usersSchema = mongoose.Schema({
     email: {type: String, required: true, trim: true, unique: true},
     password: {type: String, required: true},
     lastName: {type: String, trim: true},
-    Cp: {type: Number, trim: true},
+    cp: {type: Number, trim: true},
     streetCode: {type: String},
     district:{type: String},
     phone: {type: Number},
