@@ -11,6 +11,23 @@ const createAccessorie = async(req, res) => {
     }
 }
 
+const readProductById = async(req, res) => {
+    const {id} = req.params
+    const accessorie = await Accessories.findById(id)
+    if(!accessorie){
+        const error = new Error('No se encontro ese producto')
+        return res.status(400).json({msg: error.message})
+    }
+    res.status(200).json({accessorie})
+}
+
+const readAll = async(req, res) => {
+    const accessories = await Accessories.find()
+    res.status(200).json({accessories})
+}
+
 export {
-    createAccessorie
+    createAccessorie,
+    readProductById,
+    readAll
 }
