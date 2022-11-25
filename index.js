@@ -3,6 +3,7 @@ import dotenv from 'dotenv'
 import connectDB from './config/db.js'
 import cors from 'cors'
 import userRoutes from './routes/userRoutes.js'
+import foodRoutes from './routes/foodRoutes.js'
 
 const app = express()
 app.use(express.json())
@@ -22,6 +23,7 @@ connectDB()
 
 // app.use(cors(corsOptiones))
 app.use('/api/user', userRoutes )
+app.use('/api/food', foodRoutes )
 
 const PORT = process.env.PORT || 4000
 

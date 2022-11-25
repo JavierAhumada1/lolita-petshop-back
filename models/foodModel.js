@@ -1,14 +1,14 @@
-import mongoose from "mongoose";
+import mongoose, { Types } from "mongoose";
 
 const foodShema = mongoose.Schema({
-    type: {type: String, requered: true},
-    weight: {type: Number, requered: true},
-    name: {type: String, requered: true},
-    age: {type: Number, requered: true},
-    mark: {type: String, requered: true},
-    date: {type: String, requered: true},
-    stock: {type: Number, requered: true},
-    price: {type: Number, requered: true},
+    type: {type: String, required: true},
+    weight: {type: Types.Decimal128, requered: true},
+    name: {type: String, required: true},
+    age: {type: String, required: true},
+    brand: {type: String, required: true},
+    date: {type: String, required: true},
+    stock: {type: Number, required: true},
+    price: {type: Number, required: true},
 
 })
 
