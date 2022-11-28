@@ -14,8 +14,8 @@ const usersSchema = mongoose.Schema({
     description: {type: String},
     dni: {type: Number, trim: true},
     confirm: {type: Boolean, default: false},
-    token: {type: String, default: uuidv4()}
-
+    token: {type: String, default: uuidv4()},
+    avatar: {type: String}
 })
 
 usersSchema.pre('save', async function(next) {
