@@ -19,7 +19,9 @@ const usersSchema = mongoose.Schema({
 })
 
 usersSchema.pre('save', async function(next) {
+    //si un password fue hasheado no lo vuelva a hashear, lo ignora
     if(!this.isModified('password')){
+        //next dice que se vaya al siguiente middleware
         next()
     }
     const salt = await bcrypt.genSalt(10)
