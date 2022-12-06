@@ -14,8 +14,8 @@ const register = async (req, res) => {
             return res.status(400).json({msg: error.message})
         }
         const user = new User(req.body)
+        user.role = 'normal'
         const userSaved = await user.save()
-
         emailRegistro({
             email,
             name,
@@ -28,7 +28,7 @@ const register = async (req, res) => {
             // userSaved
         })
     } catch (error) {
-        console.log(error)
+        res.status(400).json({msg: 'Usuario ya registrado'})
     }
 }
 
