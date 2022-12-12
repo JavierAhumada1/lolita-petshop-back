@@ -57,7 +57,7 @@ const confirmUser = async (req, res) => {
 const authenticateUser = async (req, res) => {
     const {email, password} = req.body
 
-    const user = await User.findOne({email})
+    const user = await User.findOne({email}).select({token: 0, __v: 0, role: 0})
     if(!user){
         const error = new Error('El usuario no existe')
         return res.status(400).json({
@@ -75,6 +75,13 @@ const authenticateUser = async (req, res) => {
             _id: user._id,
             name: user.name,
             email: user.email,
+            cp: user.cp,
+            district: user.district,
+            dni: user.dni,
+            lastName: user.lastName,
+            phone: user.phone,
+            discription: user.discription,
+            streetCode:  user.streetCode,
             token: generateJWT(user.id)
         })
     }else {
