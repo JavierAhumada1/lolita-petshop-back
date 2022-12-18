@@ -21,10 +21,28 @@ const readProductById = async(req, res) => {
     res.status(200).json({food})
 }
 
-const readAll = async(req, res) => {
-    const food = await Food.find()
-    res.status(200).json({food})
+// const readAll = async(req, res) => {
+//     const food = await Food.find()
+//     res.status(200).json({food})
     
+// }
+
+const readAll = async(req, res) => {
+    let product
+    let products
+    let query = {}
+    if(req.query.name){query.name = req.query.name}
+    try {
+        products = await Food.find(query).select("-type -weight -age -mark -date -stock -price -__v -brand")
+        product = await Food.find({name: { $regex: "^" + query.name , $options:'i'}}).select("-type -weight -age -mark -date -stock -price -__v -brand")
+        if(product.length > 0){
+            return res.status(200).json({msg: "Se encontro un producto", product})
+        }else {
+            return res.status(200).json({msg: "Productos" , products});
+        }
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 const deleteProduct = async(req, res) => {

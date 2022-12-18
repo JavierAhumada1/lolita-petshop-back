@@ -80,7 +80,7 @@ const authenticateUser = async (req, res) => {
             dni: user.dni,
             lastName: user.lastName,
             phone: user.phone,
-            discription: user.discription,
+            description: user.description,
             streetCode:  user.streetCode,
             token: generateJWT(user.id)
         })
