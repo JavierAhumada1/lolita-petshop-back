@@ -6,7 +6,7 @@ const foodShema = mongoose.Schema({
     name: {type: String, required: true},
     age: {type: String, required: true},
     brand: {type: String, required: true, trim: true},
-    date: {type: String, required: true},
+    date: {type: Date, required: true, default: Date.now()},
     stock: {type: Number, required: true},
     price: {type: Number, required: true, trim: true},
     image: {type: String, required: true}

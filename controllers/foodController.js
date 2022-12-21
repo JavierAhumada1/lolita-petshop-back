@@ -21,10 +21,28 @@ const readProductById = async(req, res) => {
     res.status(200).json({food})
 }
 
-const readAll = async(req, res) => {
-    const food = await Food.find()
-    res.status(200).json({food})
+// const readAll = async(req, res) => {
+//     const food = await Food.find()
+//     res.status(200).json({food})
     
+// }
+
+const readAll = async(req, res) => {
+    let product
+    let products
+    let query = {}
+    if(req.query.name){query.name = req.query.name}
+    try {
+        products = await Food.find(query).select("-type -weight -age -mark -date -stock -__v -brand")
+        product = await Food.find({name: { $regex: "^" + query.name , $options:'i'}}).select("-type -weight -age -mark -date -stock -__v -brand")
+        if(product.length > 0){
+            return res.status(200).json({msg: "Se encontro un producto", product})
+        }else {
+            return res.status(200).json({msg: "Productos" , products});
+        }
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 const deleteProduct = async(req, res) => {
@@ -50,14 +68,15 @@ const updateProduct = async(req, res) => {
         return res.status(400).json({msg: error.message})
     }
 
-    food.type = req.body.type || food.type
-    food.weight = req.body.weight || food.weight
-    food.name = req.body.name || food.name
-    food.age = req.body.age || food.age
-    food.brand = req.body.brand || food.brand
-    food.date = req.body.date || food.date
-    food.stock = req.body.stock || food.stock
-    food.price = req.body.price || food.price
+    food.type = req.body.type
+    food.weight = req.body.weight
+    food.name = req.body.name
+    food.age = req.body.age
+    food.brand = req.body.brand
+    food.date = req.body.date
+    food.stock = req.body.stock
+    food.price = req.body.price
+    food.image = req.body.image
     try {
         const foodUpdate = await food.save()
         res.status(200).json({foodUpdate})
