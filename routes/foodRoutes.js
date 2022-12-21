@@ -10,7 +10,7 @@ router.get('/:id', readProductById)
 router.get('/', readAll)
 
 //area privada
-router.patch('/:id', updateProduct)
+router.put('/:id', updateProduct)
 router.delete('/:id', checkAuth ,deleteProduct)
 
 export default router
